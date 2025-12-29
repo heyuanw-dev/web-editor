@@ -4,9 +4,9 @@ import { db } from "./lib/db";
 import authConfig from "./auth.config";
 import { getUserById } from "./modules/auth/actions";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { auth, handlers, signIn, signOut } = NextAuth({
   callbacks: {
-    async signIn(user, account) {
+    async signIn({ user, account }) {
       if (!user || !account) return false;
 
       const existingUser = await db.user.findUnique({
@@ -18,10 +18,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const newUser = await db.user.create({
           data: {
             name: user.name,
-            email: user.email,
+            email: user.email!,
             image: user.image,
 
             accounts: {
+              // @ts-ignore
               create: {
                 type: account.type,
                 provider: account.provider,
@@ -65,6 +66,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               tokenType: account.token_type,
               scope: account.scope,
               idToken: account.id_token,
+              // @ts-ignore
               sessionState: account.session_state,
             },
           });
@@ -74,7 +76,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
 
-    async jwt(token) {
+    async jwt({ token }) {
       if (!token.sub) return token;
 
       const existingUser = await getUserById(token.sub);
@@ -87,7 +89,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
 
-    async session(session, token) {
+    async session({ session, token }) {
       if (token.sub && token.user) {
         session.user.id = token.sub;
       }
@@ -101,5 +103,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   secret: process.env.AUTH_SECRET,
   adapter: PrismaAdapter(db),
+  session: { strategy: "jwt" },
   ...authConfig,
 });
