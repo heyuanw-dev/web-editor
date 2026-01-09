@@ -7,7 +7,7 @@ import { parse } from "path";
 
 interface PlaygroundData {
   id: string;
-  name?: string;
+  title?: string;
   [key: string]: any;
 }
 
