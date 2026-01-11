@@ -7,14 +7,14 @@ const AddRepo = () => {
     <div
       className="group px-6 py-6 flex flex-row justify-between items-center border rounded-lg bg-muted cursor-pointer 
       transition-all duration-300 ease-in-out
-      hover:bg-background hover:border-[#6c63ff] hover:scale-[1.02]
+      hover:bg-background hover:border-[#f59e0b] hover:scale-[1.02]
       shadow-[0_2px_10px_rgba(0,0,0,0.08)]
       hover:shadow-[0_10px_30px_rgba(233,63,63,0.15)]"
     >
       <div className="flex flex-row justify-center items-start gap-4">
         <Button
           variant={"outline"}
-          className="flex justify-center items-center bg-white group-hover:bg-[#fff8f8] group-hover:border-[#6c63ff] group-hover:text-[#6c63ff] transition-colors duration-300"
+          className="flex justify-center items-center bg-white group-hover:bg-[#fff8f8] group-hover:border-[#f59e0b] group-hover:text-[#f59e0b] transition-colors duration-300"
           size={"icon"}
         >
           <ArrowDown
@@ -23,7 +23,7 @@ const AddRepo = () => {
           />
         </Button>
         <div className="flex flex-col">
-          <h1 className="text-xl font-bold text-[#6c63ff]">
+          <h1 className="text-xl font-bold text-[#f59e0b]">
             Open Github Repository
           </h1>
           <p className="text-sm text-muted-foreground max-w-[220px]">
