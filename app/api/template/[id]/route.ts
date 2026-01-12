@@ -18,10 +18,7 @@ function validateJsonStructure(data: unknown): boolean {
   }
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (!id) {
     return Response.json({ error: "Missing playground ID" }, { status: 400 });
@@ -50,23 +47,14 @@ export async function GET(
     const result = await readTemplateStructureFromJson(outputFile);
 
     if (!validateJsonStructure(result.items)) {
-      return Response.json(
-        { error: "Invalid JSON structure" },
-        { status: 500 }
-      );
+      return Response.json({ error: "Invalid JSON structure" }, { status: 500 });
     }
 
     await fs.unlink(outputFile);
 
-    return Response.json(
-      { success: true, templateJson: result },
-      { status: 200 }
-    );
+    return Response.json({ success: true, templateJson: result }, { status: 200 });
   } catch (error) {
     console.error("Error generating template JSON:", error);
-    return Response.json(
-      { error: "Failed to generate template" },
-      { status: 500 }
-    );
+    return Response.json({ error: "Failed to generate template" }, { status: 500 });
   }
 }

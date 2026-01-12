@@ -140,6 +140,7 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => ({
       editorContent: newEditorContent,
     });
   },
+  
   closeAllFiles: () => {
     set({
       openFiles: [],

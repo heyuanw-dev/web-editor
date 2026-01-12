@@ -33,10 +33,7 @@ export interface TerminalRef {
 }
 
 const TerminalComponent = forwardRef<TerminalRef, TerminalProps>(
-  (
-    { webcontainerUrl, className, theme = "dark", webContainerInstance },
-    ref
-  ) => {
+  ({ webcontainerUrl, className, theme = "dark", webContainerInstance }, ref) => {
     const terminalRef = useRef<HTMLDivElement>(null);
     const term = useRef<Terminal | null>(null);
     const fitAddon = useRef<FitAddon | null>(null);
@@ -245,11 +242,8 @@ const TerminalComponent = forwardRef<TerminalRef, TerminalProps>(
               }
 
               // Clear current line and write history command
-              const historyCommand =
-                commandHistory.current[historyIndex.current];
-              term.current.write(
-                "\r$ " + " ".repeat(currentLine.current.length) + "\r$ "
-              );
+              const historyCommand = commandHistory.current[historyIndex.current];
+              term.current.write("\r$ " + " ".repeat(currentLine.current.length) + "\r$ ");
               term.current.write(historyCommand);
               currentLine.current = historyCommand;
               cursorPosition.current = historyCommand.length;
@@ -260,19 +254,14 @@ const TerminalComponent = forwardRef<TerminalRef, TerminalProps>(
             if (historyIndex.current !== -1) {
               if (historyIndex.current < commandHistory.current.length - 1) {
                 historyIndex.current++;
-                const historyCommand =
-                  commandHistory.current[historyIndex.current];
-                term.current.write(
-                  "\r$ " + " ".repeat(currentLine.current.length) + "\r$ "
-                );
+                const historyCommand = commandHistory.current[historyIndex.current];
+                term.current.write("\r$ " + " ".repeat(currentLine.current.length) + "\r$ ");
                 term.current.write(historyCommand);
                 currentLine.current = historyCommand;
                 cursorPosition.current = historyCommand.length;
               } else {
                 historyIndex.current = -1;
-                term.current.write(
-                  "\r$ " + " ".repeat(currentLine.current.length) + "\r$ "
-                );
+                term.current.write("\r$ " + " ".repeat(currentLine.current.length) + "\r$ ");
                 currentLine.current = "";
                 cursorPosition.current = 0;
               }
@@ -394,9 +383,7 @@ const TerminalComponent = forwardRef<TerminalRef, TerminalProps>(
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `terminal-log-${new Date()
-          .toISOString()
-          .slice(0, 19)}.txt`;
+        a.download = `terminal-log-${new Date().toISOString().slice(0, 19)}.txt`;
         a.click();
         URL.revokeObjectURL(url);
       }
@@ -493,30 +480,15 @@ const TerminalComponent = forwardRef<TerminalRef, TerminalProps>(
               <Search className="h-3 w-3" />
             </Button>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={copyTerminalContent}
-              className="h-6 w-6 p-0"
-            >
+            <Button variant="ghost" size="sm" onClick={copyTerminalContent} className="h-6 w-6 p-0">
               <Copy className="h-3 w-3" />
             </Button>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={downloadTerminalLog}
-              className="h-6 w-6 p-0"
-            >
+            <Button variant="ghost" size="sm" onClick={downloadTerminalLog} className="h-6 w-6 p-0">
               <Download className="h-3 w-3" />
             </Button>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={clearTerminal}
-              className="h-6 w-6 p-0"
-            >
+            <Button variant="ghost" size="sm" onClick={clearTerminal} className="h-6 w-6 p-0">
               <Trash2 className="h-3 w-3" />
             </Button>
           </div>

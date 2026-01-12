@@ -15,9 +15,7 @@ interface UseWebContainerReturn {
   destroy: () => void;
 }
 
-export const useWebContainer = ({
-  templateData,
-}: UseWebContainerProps): UseWebContainerReturn => {
+export const useWebContainer = ({ templateData }: UseWebContainerProps): UseWebContainerReturn => {
   const [serverUrl, setServerUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,11 +35,7 @@ export const useWebContainer = ({
       } catch (error) {
         console.error("Failed to initialize WebContainer:", error);
         if (mounted) {
-          setError(
-            error instanceof Error
-              ? error.message
-              : "Failed to initialize WebContainer"
-          );
+          setError(error instanceof Error ? error.message : "Failed to initialize WebContainer");
           setIsLoading(false);
         }
       }
@@ -73,8 +67,7 @@ export const useWebContainer = ({
 
         await instance.fs.writeFile(path, content);
       } catch (error) {
-        const errorMessage =
-          error instanceof Error ? error.message : "Failed to write file";
+        const errorMessage = error instanceof Error ? error.message : "Failed to write file";
         console.error(`Failed to write file at ${path}:`, error);
         throw new Error(`Failed to write file at ${path}: ${errorMessage}`);
       }
@@ -90,5 +83,5 @@ export const useWebContainer = ({
     }
   }, [instance]);
 
-  return {serverUrl, isLoading, error, instance, writeFileSync, destroy}
+  return { serverUrl, isLoading, error, instance, writeFileSync, destroy };
 };

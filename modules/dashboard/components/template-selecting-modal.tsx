@@ -102,17 +102,12 @@ const templates: TemplateOption[] = [
   {
     id: "hono",
     name: "Hono",
-    description:
-      "Fast, lightweight, built on Web Standards. Support for any JavaScript runtime.",
+    description: "Fast, lightweight, built on Web Standards. Support for any JavaScript runtime.",
     icon: "/hono.svg",
     color: "#e36002",
     popularity: 3,
     tags: ["Node.js", "TypeScript", "Backend"],
-    features: [
-      "Dependency Injection",
-      "TypeScript Support",
-      "Modular Architecture",
-    ],
+    features: ["Dependency Injection", "TypeScript Support", "Modular Architecture"],
     category: "backend",
   },
   {
@@ -135,29 +130,20 @@ const templates: TemplateOption[] = [
   },
 ];
 
-const TemplateSelectionModal = ({
-  isOpen,
-  onClose,
-  onSubmit,
-}: TemplateSelectionModalProps) => {
+const TemplateSelectionModal = ({ isOpen, onClose, onSubmit }: TemplateSelectionModalProps) => {
   const [step, setStep] = useState<"select" | "configure">("select");
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [category, setCategory] = useState<
-    "all" | "frontend" | "backend" | "fullstack"
-  >("all");
+  const [category, setCategory] = useState<"all" | "frontend" | "backend" | "fullstack">("all");
   const [projectName, setProjectName] = useState("");
 
   const filteredTemplates = templates.filter((template) => {
     const matchesSearch =
       template.name.toLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
       template.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      template.tags.some((tag) =>
-        tag.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      template.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
 
-    const matchesCategory =
-      category === "all" || template.category === category;
+    const matchesCategory = category === "all" || template.category === category;
 
     return matchesCategory && matchesSearch;
   });
@@ -212,9 +198,7 @@ const TemplateSelectionModal = ({
         <Star
           key={i}
           size={14}
-          className={
-            i < count ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-          }
+          className={i < count ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}
         />
       ));
   };
@@ -236,13 +220,11 @@ const TemplateSelectionModal = ({
         {step === "select" ? (
           <>
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-[#6c63ff] flex items-center gap-2">
-                <Plus size={24} className="text-[#6c63ff]" />
+              <DialogTitle className="text-2xl font-bold text-[#f59e0b] flex items-center gap-2">
+                <Plus size={24} className="text-[#f59e0b]" />
                 Select a Template
               </DialogTitle>
-              <DialogDescription>
-                Choose a template to create your new playground
-              </DialogDescription>
+              <DialogDescription>Choose a template to create your new playground</DialogDescription>
             </DialogHeader>
 
             <div className="flex flex-col gap-6 py-4">
@@ -274,10 +256,7 @@ const TemplateSelectionModal = ({
                 </Tabs>
               </div>
 
-              <RadioGroup
-                value={selectedTemplate || ""}
-                onValueChange={handleSelectTemplate}
-              >
+              <RadioGroup value={selectedTemplate || ""} onValueChange={handleSelectTemplate}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {filteredTemplates.length > 0 ? (
                     filteredTemplates.map((template) => (
@@ -286,8 +265,8 @@ const TemplateSelectionModal = ({
                         className={`relative flex p-6 border rounded-lg cursor-pointer transition-all duration-300 hover:scale-[1.02]
                             ${
                               selectedTemplate === template.id
-                                ? "border-[#6c63ff]  shadow-[0_0_0_1px_#6c63ff,0_8px_20px_rgba(233,63,63,0.15)]"
-                                : "hover:border-[#6c63ff] shadow-[0_2px_8px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)]"
+                                ? "border-[#f59e0b]  shadow-[0_0_0_1px_#f59e0b,0_8px_20px_rgba(233,63,63,0.15)]"
+                                : "hover:border-[#f59e0b] shadow-[0_2px_8px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)]"
                             }
                             `}
                         onClick={() => handleSelectTemplate(template.id)}
@@ -297,7 +276,7 @@ const TemplateSelectionModal = ({
                         </div>
 
                         {selectedTemplate === template.id && (
-                          <div className="absolute top-2 left-2 bg-[#6c63ff] text-white rounded-full p-1">
+                          <div className="absolute top-2 left-2 bg-[#f59e0b] text-white rounded-full p-1">
                             <Check size={14} />
                           </div>
                         )}
@@ -318,24 +297,16 @@ const TemplateSelectionModal = ({
 
                           <div className="flex flex-col">
                             <div className="flex items-center gap-2 mb-1">
-                              <h3 className="text-lg font-semibold">
-                                {template.name}
-                              </h3>
+                              <h3 className="text-lg font-semibold">{template.name}</h3>
                               <div className="flex gap-1">
                                 {template.category === "frontend" && (
                                   <Code size={14} className="text-blue-500" />
                                 )}
                                 {template.category === "backend" && (
-                                  <Server
-                                    size={14}
-                                    className="text-green-500"
-                                  />
+                                  <Server size={14} className="text-green-500" />
                                 )}
                                 {template.category === "fullstack" && (
-                                  <Globe
-                                    size={14}
-                                    className="text-purple-500"
-                                  />
+                                  <Globe size={14} className="text-purple-500" />
                                 )}
                               </div>
                             </div>
@@ -346,10 +317,7 @@ const TemplateSelectionModal = ({
 
                             <div className="flex flex-wrap gap-2 mt-auto">
                               {template.tags.map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="text-xs px-2 py-1 border rounded-2xl"
-                                >
+                                <span key={tag} className="text-xs px-2 py-1 border rounded-2xl">
                                   {tag}
                                 </span>
                               ))}
@@ -357,19 +325,13 @@ const TemplateSelectionModal = ({
                           </div>
                         </div>
 
-                        <RadioGroupItem
-                          value={template.id}
-                          id={template.id}
-                          className="sr-only"
-                        />
+                        <RadioGroupItem value={template.id} id={template.id} className="sr-only" />
                       </div>
                     ))
                   ) : (
                     <div className="col-span-2 flex flex-col items-center justify-center p-8 text-center">
                       <Search size={48} className="text-gray-300 mb-4" />
-                      <h3 className="text-lg font-medium">
-                        No templates found
-                      </h3>
+                      <h3 className="text-lg font-medium">No templates found</h3>
                       <p className="text-sm text-muted-foreground">
                         Try adjusting your search or filters
                       </p>
@@ -383,8 +345,7 @@ const TemplateSelectionModal = ({
               <div className="flex items-center text-sm text-muted-foreground">
                 <Clock size={14} className="mr-1" />
                 <span>
-                  Estimated setup time:{" "}
-                  {selectedTemplate ? "2-5 minutes" : "Select a template"}
+                  Estimated setup time: {selectedTemplate ? "2-5 minutes" : "Select a template"}
                 </span>
               </div>
               <div className="flex gap-3">
@@ -392,7 +353,7 @@ const TemplateSelectionModal = ({
                   Cancel
                 </Button>
                 <Button
-                  className="bg-[#6c63ff] hover:bg-[#9236d0]"
+                  className="bg-[#f59e0b] hover:bg-[#f9ab45] text-black"
                   disabled={!selectedTemplate}
                   onClick={handleContinue}
                 >
@@ -404,12 +365,11 @@ const TemplateSelectionModal = ({
         ) : (
           <>
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-[#6c63ff]">
+              <DialogTitle className="text-2xl font-bold text-[#f59e0b]">
                 Configure Your Project
               </DialogTitle>
               <DialogDescription>
-                {templates.find((t) => t.id === selectedTemplate)?.name} project
-                configuration
+                {templates.find((t) => t.id === selectedTemplate)?.name} project configuration
               </DialogDescription>
             </DialogHeader>
 
@@ -424,14 +384,14 @@ const TemplateSelectionModal = ({
                 />
               </div>
 
-              <div className="p-4 shadow-[0_0_0_1px_#6c63ff,0_8px_20px_rgba(233,63,63,0.15)] rounded-lg border">
+              <div className="p-4 shadow-[0_0_0_1px_#f59e0b,0_8px_20px_rgba(233,63,63,0.15)] rounded-lg border">
                 <h3 className="font-medium mb-2">Selected Template Features</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {templates
                     .find((t) => t.id === selectedTemplate)
                     ?.features.map((feature) => (
                       <div key={feature} className="flex items-center gap-2">
-                        <Zap size={14} className="text-[#6c63ff]" />
+                        <Zap size={14} className="text-[#f59e0b]" />
                         <span className="text-sm">{feature}</span>
                       </div>
                     ))}
@@ -444,7 +404,7 @@ const TemplateSelectionModal = ({
                 Back
               </Button>
               <Button
-                className="bg-[#6c63ff] hover:bg-[#9236d0]"
+                className="bg-[#f59e0b] hover:bg-[#f9ab45] text-black"
                 onClick={handleCreateProject}
               >
                 Create Project
