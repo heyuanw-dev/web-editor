@@ -154,7 +154,7 @@ async function generateSuggestion(prompt: string): Promise<string> {
 
     let suggestion = response.output_text;
     // let suggestion = response.choices[0].message?.content.trim() || "";
-    console.log("Raw AI suggestion:", suggestion);
+    // console.log("Raw AI suggestion:", suggestion);
 
     // Clean up suggestion (remove comments)
     if (suggestion.includes("```")) {
