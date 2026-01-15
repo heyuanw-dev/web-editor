@@ -46,8 +46,8 @@ export async function POST(request: NextRequest) {
       metadata: {
         language: context.language,
         framework: context.framework,
-        positon: context.cursorPosition,
-        generatedAt: new Date().toISOString,
+        position: context.cursorPosition,
+        generatedAt: new Date().toISOString(),
       },
     });
   } catch (error: any) {
