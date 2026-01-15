@@ -14,8 +14,10 @@ import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import LoadingStep from "@/modules/playground/components/loader";
-import PlaygroundEditor from "@/modules/playground/components/playground-editor";
+import { PlaygroundEditor } from "@/modules/playground/components/playground-editor";
 import { TemplateFileTree } from "@/modules/playground/components/playground-explorer";
+import ToggleAI from "@/modules/playground/components/toggle-ai";
+import { useAISuggestions } from "@/modules/playground/hooks/useAISuggestion";
 // import ToggleAI from "@/modules/playground/components/toggle-ai";
 // import { useAISuggestions } from "@/modules/playground/hooks/useAISuggestion";
 import { useFileExplorer } from "@/modules/playground/hooks/useFileExplorer";
@@ -35,7 +37,7 @@ const MainPlaygroundPage = () => {
 
   const { playgroundData, templateData, isLoading, error, saveTemplateData } = usePlayground(id);
 
-  // const aiSuggestions = useAISuggestions();
+  const aiSuggestions = useAISuggestions();
 
   const {
     setTemplateData,
@@ -344,11 +346,11 @@ const MainPlaygroundPage = () => {
                   <TooltipContent>Save All (Ctrl+Shift+S)</TooltipContent>
                 </Tooltip>
 
-                {/* <ToggleAI
+                <ToggleAI
                   isEnabled={aiSuggestions.isEnabled}
                   onToggle={aiSuggestions.toggleEnabled}
                   suggestionLoading={aiSuggestions.isLoading}
-                /> */}
+                />
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -425,18 +427,16 @@ const MainPlaygroundPage = () => {
                         onContentChange={(value) =>
                           activeFileId && updateFileContent(activeFileId, value)
                         }
-                        // suggestion={aiSuggestions.suggestion}
-                        // suggestionLoading={aiSuggestions.isLoading}
-                        // suggestionPosition={aiSuggestions.position}
-                        // onAcceptSuggestion={(editor, monaco) =>
-                        //   aiSuggestions.acceptSuggestion(editor, monaco)
-                        // }
-                        // onRejectSuggestion={(editor) =>
-                        //   aiSuggestions.rejectSuggestion(editor)
-                        // }
-                        // onTriggerSuggestion={(type, editor) =>
-                        //   aiSuggestions.fetchSuggestion(type, editor)
-                        // }
+                        suggestion={aiSuggestions.suggestion}
+                        suggestionLoading={aiSuggestions.isLoading}
+                        suggestionPosition={aiSuggestions.position}
+                        onAcceptSuggestion={(editor, monaco) =>
+                          aiSuggestions.acceptSuggestion(editor, monaco)
+                        }
+                        onRejectSuggestion={(editor) => aiSuggestions.rejectSuggestion(editor)}
+                        onTriggerSuggestion={(type, editor) =>
+                          aiSuggestions.fetchSuggestion(type, editor)
+                        }
                       />
                     </ResizablePanel>
 
