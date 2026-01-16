@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
+import { openai } from "@/lib/openai";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -26,7 +26,6 @@ async function generateAIResponse(messages: ChatMessage[]): Promise<string> {
   const prompt = messages.map((msg) => `${msg.content}`).join("\n\n");
 
   try {
-    const openai = new OpenAI();
     const response = await openai.responses.create({
       model: "gpt-5-nano",
       input: [

@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
+import { openai } from "@/lib/openai";
 
 interface CodeSuggestionRequest {
   fileContent: string;
@@ -132,8 +132,6 @@ function buildPrompt(context: CodeContext, suggestionType: string): string {
 async function generateSuggestion(prompt: string): Promise<string> {
   try {
     // Create OpenAI API Call using prompt
-    const openai = new OpenAI();
-
     const response = await openai.responses.create({
       model: "gpt-5-nano",
       input: [
