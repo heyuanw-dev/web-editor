@@ -163,15 +163,15 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({ isOpen, onClos
     setIsLoading(true);
 
     try {
-      const contexualMessage = getChatModePrompt(chatMode, input.trim());
+      const contextualMessage = getChatModePrompt(chatMode, input.trim());
 
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
-          "Content-Type": "application.json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          messages: contexualMessage,
+          message: contextualMessage,
           history: messages.slice(-10).map((msg) => ({
             role: msg.role,
             content: msg.content,
@@ -226,7 +226,23 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({ isOpen, onClos
     }
   };
 
-  const exportChat = () => {};
+  const exportChat = () => {
+    const chatData = {
+      messages,
+      timestamp: new Date().toISOString(),
+    };
+    const blob = new Blob([JSON.stringify(chatData, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ai-chat-${new Date().toISOString().split("T")[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   const filteredMessages = messages
     .filter((msg) => {
