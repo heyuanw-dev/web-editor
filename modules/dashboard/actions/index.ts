@@ -144,7 +144,6 @@ export const duplicateProjectById = async (id: string) => {
     });
 
     revalidatePath("/dashboard");
-    return duplicatedPlayground;
   } catch (error) {
     console.log(error);
   }

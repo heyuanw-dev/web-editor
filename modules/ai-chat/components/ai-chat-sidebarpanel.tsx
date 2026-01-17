@@ -480,14 +480,17 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({ isOpen, onClos
                           remarkPlugins={[remarkGfm, remarkMath]}
                           rehypePlugins={[rehypeKatex]}
                           components={{
-                            code: ({ children, className, inline }) => {
-                              if (inline) {
+                            code({ children, className, ...props }) {
+                              const isInline = !className;
+
+                              if (isInline) {
                                 return (
                                   <code className="bg-zinc-800 px-1 py-0.5 rounded text-sm">
                                     {children}
                                   </code>
                                 );
                               }
+
                               return (
                                 <div className="bg-zinc-800 rounded-lg p-4 my-4">
                                   <pre className="text-sm text-zinc-100 overflow-x-auto">
@@ -588,7 +591,7 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({ isOpen, onClos
                     }
                   }}
                   disabled={isLoading}
-                  className="min-h-[44px] max-h-32 bg-zinc-800/50 border-zinc-700/50 text-zinc-100 placeholder-zinc-500 focus:border-blue-500 focus:ring-blue-500/20 resize-none pr-20"
+                  className="min-h-11 max-h-32 bg-zinc-800/50 border-zinc-700/50 text-zinc-100 placeholder-zinc-500 focus:border-blue-500 focus:ring-blue-500/20 resize-none pr-20"
                   rows={1}
                 />
                 <div className="absolute right-3 bottom-3 flex items-center gap-2">
