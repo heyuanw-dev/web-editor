@@ -6,7 +6,7 @@ interface ChatMessage {
   content: string;
 }
 
-interface ChatReqeust {
+interface ChatRequest {
   message: string;
   history: ChatMessage[];
 }
@@ -53,7 +53,7 @@ async function generateAIResponse(messages: ChatMessage[]): Promise<string> {
 
 export async function POST(req: NextRequest) {
   try {
-    const body: ChatReqeust = await req.json();
+    const body: ChatRequest = await req.json();
     const { message, history = [] } = body;
 
     if (!message || typeof message !== "string") {

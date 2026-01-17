@@ -154,7 +154,7 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({ isOpen, onClos
       role: "user",
       content: input.trim(),
       timestamp: new Date(),
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       type: messageType,
     };
 
@@ -198,14 +198,16 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({ isOpen, onClos
           },
         ]);
       } else {
+        const errorBody = await response.text();
         setMessages((prev) => [
           ...prev,
           {
             role: "assistant",
             content:
+              errorBody ||
               "Sorry, I encountered an error while processing your request. Please try again.",
             timestamp: new Date(),
-            id: Date.now().toString(),
+            id: crypto.randomUUID(),
           },
         ]);
       }
@@ -331,7 +333,9 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({ isOpen, onClos
             {/* Enhanced Controls */}
             <Tabs
               value={chatMode}
-              onValueChange={(value) => setChatMode(value as any)}
+              onValueChange={(value) =>
+                setChatMode(value as "chat" | "review" | "fix" | "optimize")
+              }
               className="px-6"
             >
               <div className="flex items-center justify-between mb-4">
@@ -362,8 +366,8 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({ isOpen, onClos
                       onChange={(e) => setModel(e.target.value)}
                       className="bg-zinc-900/60 border border-zinc-800 rounded px-2 py-1 text-zinc-200 focus:outline-none"
                     >
-                      <option value="gpt-6">gpt-6</option>
-                      <option value="codellama">codellama</option>
+                      <option value="gpt-5">gpt-5</option>
+                      <option value="gemini3">gemini3</option>
                       <option value="llama2">llama2</option>
                     </select>
                   </div>
@@ -501,7 +505,7 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({ isOpen, onClos
                       {/* Message actions */}
                       <div className="flex items-center justify-between mt-3 pt-2 border-t border-zinc-700/30">
                         <div className="text-xs text-zinc-500">
-                          {msg.timestamp.toLocaleTimeString()}
+                          {new Date(msg.timestamp).toLocaleTimeString()}
                         </div>
                         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                           <Button
