@@ -107,7 +107,7 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({ isOpen, onClos
   const [filterType, setFilterType] = useState<string>("all");
   const [autoSave, setAutoSave] = useState(true);
   const [streamResponse, setStreamResponse] = useState(true);
-  const [model, setModel] = useState<string>("gpt-6");
+  const [model, setModel] = useState<string>("gpt-5");
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
