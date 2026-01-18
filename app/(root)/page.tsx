@@ -14,15 +14,14 @@ export default function Home() {
 dark:from-amber-300 dark:via-amber-400 dark:to-amber-500
  tracking-tight leading-[1.3] "
         >
-          Vibe Code With with Intelligence
+          Online Code Editor With AI Intelligence
         </h1>
       </div>
 
       <p className="mt-2 text-lg text-center text-gray-600 dark:text-gray-400 px-5 py-10 max-w-2xl">
-        VibeCode Editor is a powerful and intelligent web-based code editor that enhances
-        your coding experience with AI features and seamless integration.
-        It is designed to help you write, debug, and optimize your code
-        efficiently right within a browser.
+        Codepad AI is a powerful, web-based code editor that enhances your development workflow with
+        intelligent AI features and seamless integration. It helps you write, debug, and optimize
+        code efficiently—directly in your browser.
       </p>
       <Link href={"/dashboard"}>
         <Button variant={"brand"} className="mb-4" size={"lg"}>
